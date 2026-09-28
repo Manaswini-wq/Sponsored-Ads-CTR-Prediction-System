@@ -1,0 +1,31 @@
+model:
+  type: "lightgbm"
+  learning_rate: 0.05
+  num_trees: 500
+  max_depth: 7
+  feature_fraction: 0.8
+  min_data_in_leaf: 50
+  early_stopping_rounds: 30
+
+serving:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  timeout_ms: 50
+  max_batch_size: 100
+
+feature_store:
+  redis_host: "localhost"
+  redis_port: 6379
+  ttl_seconds: 3600
+  fallback_to_memory: true
+
+pipeline:
+  batch_size: 4096
+  checkpoint_dir: "artifacts/checkpoints"
+  experiment_name: "ctr_experiment"
+
+monitoring:
+  latency_window_size: 10000
+  drift_check_interval_minutes: 60
+  psi_threshold: 0.2
