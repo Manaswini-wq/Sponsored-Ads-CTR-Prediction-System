@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - FEATURE_STORE_REDIS_HOST=redis
+      - FEATURE_STORE_FALLBACK_TO_MEMORY=true
+    depends_on:
+      - redis
